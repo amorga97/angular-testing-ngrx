@@ -13,7 +13,9 @@ export class UserEffects {
       ofType(loginUser),
       switchMap(({ payload }) =>
         this.loginService.login(payload).pipe(
-          map((users) => loginUserSuccess({ payload: users[0] })),
+          map((users) => {
+            return loginUserSuccess({ payload: users });
+          }),
           catchError((error) => {
             return of(loginUserFailure({ payload: error }));
           })
